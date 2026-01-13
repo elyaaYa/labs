@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+font-family: Arial, sans-serif;
+background: #f9f0f0;
+color: #5a2a2a;
+margin: 0;
+padding: 20px;
+}
+        
+.container {
+max-width: 700px;
+margin: 0 auto;
+}
+        
+h1 {
+text-align: center;
+color: #8b4513;
+margin-bottom: 30px;
+}
+        
+.menu {
+text-align: center;
+margin-bottom: 30px;
+}
+        
+.menu button {
+background: #d8b6b6;
+border: none;
+color: white;
+padding: 10px 20px;
+margin: 5px;
+cursor: pointer;
+border-radius: 4px;
+font-size: 16px;
+}
+        
+.menu button:hover {
+background: #c99595;
+}
+        
+.menu button.active {
+background: #b76e6e;
+font-weight: bold;
+}
+        
+.task {
+display: none;
+background: white;
+padding: 25px;
+border-radius: 8px;
+box-shadow: 0 2px 10px rgba(139, 69, 69, 0.1);
+margin-bottom: 20px;
+}
+        
+.task.active {
+display: block;
+}
+        
+.task h2 {
+color: #8b4513;
+margin-top: 0;
+border-bottom: 1px solid #e8c4c4;
+padding-bottom: 10px;
+}
+        
+input {
+width: 100%;
+padding: 10px;
+margin: 10px 0;
+border: 1px solid #d8b6b6;
+border-radius: 4px;
+font-size: 16px;
+}
+
+.btn {
+background: #b76e6e;
+color: white;
+border: none;
+padding: 12px 25px;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+margin-top: 10px;
+}
+        
+.btn:hover {
+background: #a05252;
+}
+        
+.result {
+margin-top: 20px;
+padding: 15px;
+background: #f9f0f0;
+border-radius: 4px;
+border-left: 4px solid #d8b6b6;
+}
+        
+.example {
+font-size: 14px;
+color: #a05252;
+margin-top: 10px;
+font-style: italic;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    
+<div class="menu">
+<button class="active" onclick="showTask(1)">Задание 1</button>
+<button onclick="showTask(2)">Задание 2A</button>
+<button onclick="showTask(3)">Задание 2B</button>
+<button onclick="showTask(4)">Задание 4</button>
+</div>
+    
+<!-- Задание 1: Простое число -->
+<div id="task1" class="task active">
+<h2>Задание 1: Проверка простого числа</h2>
+<p>Дано число. Определить, является ли оно простым или нет.</p>
+<p>Введите число для проверки:</p>
+<input type="number" id="primeInput" placeholder="Например: 17, 23, 29">
+<br>
+<button class="btn" onclick="checkPrime()">Проверить число</button>
+<div id="primeResult" class="result"></div>
+<div class="example">Примеры простых чисел: 2, 3, 5, 7, 11, 13, 17, 19, 23...</div>
+</div>
+    
+<!-- Задание 2A: Сумма элементов массива -->
+<div id="task2" class="task">
+<h2>Задание 2A: Сумма элементов массива</h2>
+<p>Вычислите в массиве сумму элементов от начала до первого элемента, удовлетворяющего условию: синус этого числа есть число положительное.</p>
+<p>Введите массив чисел через запятую:</p>
+<input type="text" id="arrayInputA" placeholder="Пример: 1.5, -2, 3.14, 4, -5.7">
+<br>
+<button class="btn" onclick="calculateSum()">Вычислить сумму</button>
+<div id="arrayResultA" class="result"></div>
+<div class="example">Вычисляется сумма элементов от начала до первого числа с положительным синусом</div>
+</div>
+    
+<!-- Задание 2B: Фильтрация массива -->
+<div id="task3" class="task">
+<h2>Задание 2B: Фильтрация массива</h2>
+<p>Удалите из массива все элементы, модуль целой части которых — это число, все цифры которого чётные.</p>
+<p>Введите массив чисел через запятую:</p>
+<input type="text" id="arrayInputB" placeholder="Пример: 246, 135, 802, 357, 468">
+<br>
+<button class="btn" onclick="filterArray()">Отфильтровать массив</button>
+<div id="arrayResultB" class="result"></div>
+<div class="example">Удаляются числа, у которых модуль целой части состоит только из чётных цифр</div>
+    </div>
+    
+<!-- Задание 4: Подсчет слогов -->
+<div id="task4" class="task">
+<h2>Задание 4: Подсчет слогов в слове</h2>
+<p>Дана строка. Подсчитать количество слогов в слове.</p>
+<p>Введите слово:</p>
+<input type="text" id="wordInput" placeholder="Например: программа, университет, магия">
+<br>
+<button class="btn" onclick="countSyllables()">Подсчитать слоги</button>
+<div id="syllableResult" class="result"></div>
+<div class="example">Слог - это гласная звучащая часть слова. Пример: "ко-те-нок" - 3 слога</div>
+</div>
+</div>
+
+<script>
+// Функция переключения между заданиями
+function showTask(taskNumber) {
+// Скрыть все задачи
+document.querySelectorAll('.task').forEach(task => {
+task.classList.remove('active');
+});
+
+// Убрать активный класс у всех кнопок
+document.querySelectorAll('.menu button').forEach(button => {
+button.classList.remove('active');
+});
+        
+// Показать выбранную задачу
+document.getElementById('task' + taskNumber).classList.add('active');
+
+// Сделать активной выбранную кнопку
+event.target.classList.add('active');
+}
+    
+// Задание 1: Проверка простого числа
+function checkPrime() {
+const input = document.getElementById('primeInput').value;
+const resultDiv = document.getElementById('primeResult');
+        
+if (!input) {
+resultDiv.innerHTML = "Пожалуйста, введите число";
+return;
+}
+        
+const num = parseInt(input);
+        
+if (num <= 1) {
+resultDiv.innerHTML = `Число <b>${num}</b> НЕ является простым`;
+return;
+}
+        
+let isPrime = true;
+        
+// Проверяем делители от 2 до корня из числа
+for (let i = 2; i <= Math.sqrt(num); i++) {
+if (num % i === 0) {
+isPrime = false;
+break;
+}
+}
+        
+if (isPrime) {
+resultDiv.innerHTML = `Число <b>${num}</b> ЯВЛЯЕТСЯ простым`;
+} else {
+resultDiv.innerHTML = `Число <b>${num}</b> НЕ является простым`;
+}
+}
+    
+// Задание 2A: Сумма элементов массива
+function calculateSum() {
+const input = document.getElementById('arrayInputA').value;
+const resultDiv = document.getElementById('arrayResultA');
+        
+if (!input) {
+resultDiv.innerHTML = "Пожалуйста, введите массив чисел";
+return;
+}
+
+// Преобразуем строку в массив чисел
+const numbers = [];
+const parts = input.split(',');
+        
+for (let i = 0; i < parts.length; i++) {
+const num = parseFloat(parts[i].trim());
+if (!isNaN(num)) {
+numbers.push(num);
+}
+}
+        
+if (numbers.length === 0) {
+resultDiv.innerHTML = "Не удалось распознать числа";
+return;
+}
+        
+// Находим сумму до первого числа с положительным синусом
+let sum = 0;
+let found = false;
+let stopIndex = -1;
+
+for (let i = 0; i < numbers.length; i++) {
+const num = numbers[i];
+// Проверяем условие: синус числа положительный
+if (Math.sin(num) > 0) {
+found = true;
+stopIndex = i;
+break;
+}
+sum += num;
+}
+        
+if (found) {
+resultDiv.innerHTML = `
+Исходный массив: [${numbers.join(', ')}]<br><br>
+Первое число с положительным синусом: <b>${numbers[stopIndex]}</b><br>
+(sin(${numbers[stopIndex]}) = ${Math.sin(numbers[stopIndex]).toFixed(4)})<br><br>
+Сумма элементов до него: <b>${sum.toFixed(4)}</b>
+`;
+} else {
+resultDiv.innerHTML = `
+Исходный массив: [${numbers.join(', ')}]<br><br>
+<span style='color:#a05252'>Числа с положительным синусом не найдены</span><br><br>
+Сумма всех элементов: <b>${sum.toFixed(4)}</b>
+`;
+}
+}
+    
+// Задание 2B: Фильтрация массива
+function filterArray() {
+const input = document.getElementById('arrayInputB').value;
+const resultDiv = document.getElementById('arrayResultB');
+        
+if (!input) {
+resultDiv.innerHTML = "Пожалуйста, введите массив чисел";
+return;
+}
+        
+// Преобразуем строку в массив чисел
+let numbers = input.split(',').map(item => {
+return parseFloat(item.trim());
+}).filter(num => !isNaN(num));
+        
+if (numbers.length === 0) {
+resultDiv.innerHTML = "Не удалось распознать числа";
+return;
+}
+        
+// Проверяем, все ли цифры числа четные
+function allDigitsEven(number) {
+const intPart = Math.abs(Math.trunc(number));
+const digits = intPart.toString();
+
+if (digits === '0') return false;
+
+for (let i = 0; i < digits.length; i++) {
+const digit = parseInt(digits[i]);
+if (digit % 2 !== 0) {
+return false;
+}
+}
+return true;
+}
+        
+// Фильтруем массив
+const originalArray = [...numbers];
+numbers = numbers.filter(num => !allDigitsEven(num));
+        
+const removed = originalArray.filter(num => allDigitsEven(num));
+        
+resultDiv.innerHTML = `
+<b>Исходный массив:</b> [${originalArray.join(', ')}]<br><br>
+<b>Отфильтрованный массив:</b> [${numbers.join(', ')}]<br><br>
+<b>Удалено элементов:</b> ${originalArray.length - numbers.length}<br>
+${removed.length > 0 ? `Удалённые числа: [${removed.join(', ')}]` : ''}
+`;
+}
+    
+// Задание 4: Подсчет слогов
+function countSyllables() {
+const input = document.getElementById('wordInput').value.toLowerCase();
+const resultDiv = document.getElementById('syllableResult');
+        
+if (!input) {
+resultDiv.innerHTML = "Пожалуйста, введите слово";
+return;
+}
+        
+// Гласные буквы (русский язык)
+const vowels = 'аеёиоуыэюя';
+let syllableCount = 0;
+let foundVowels = [];
+        
+for (let i = 0; i < input.length; i++) {
+if (vowels.includes(input[i])) {
+syllableCount++;
+foundVowels.push(input[i]);
+}
+}
+        
+if (syllableCount === 0) {
+resultDiv.innerHTML = `В слове "<b>${input}</b>" не найдено гласных букв`;
+} else {
+resultDiv.innerHTML = `
+Слово: <b>${input}</b><br>
+Найдено гласных букв: <b>${foundVowels.join(', ')}</b><br>
+Количество слогов: <b>${syllableCount}</b>
+`;
+}
+}
+</script>
+
+</body>
+</html>

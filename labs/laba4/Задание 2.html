@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Удар по бильярдному шару</title>
+<style>
+body {
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+background: #2c3e50;
+font-family: Arial, sans-serif;
+}
+        
+.table {
+position: relative;
+width: 600px;
+height: 300px;
+background: #1a472a;
+border: 5px solid #8B4513;
+border-radius: 5px;
+overflow: hidden;
+}
+        
+/* Лунки  */
+.pocket {
+position: absolute;
+width: 50px;
+height: 50px;
+background: black;
+border-radius: 50%;
+}
+        
+.pocket1 { top: -15px; left: -15px; }
+.pocket2 { top: -15px; right: -15px; }
+.pocket3 { bottom: -15px; left: -15px; }
+.pocket4 { bottom: -15px; right: -15px; }
+.pocket5 { top: -15px; left: 50%; transform: translateX(-50%); }
+.pocket6 { bottom: -15px; left: 50%; transform: translateX(-50%); }
+        
+/* Кий */
+.cue {
+position: absolute;
+width: 250px;
+height: 8px;
+background: #5D4037;
+border-radius: 4px;
+top: 50%;
+left: 30px;
+transform: translateY(-50%);
+transform-origin: 95% 50%;
+z-index: 2;
+}
+        
+.cue-tip {
+position: absolute;
+width: 12px;
+height: 12px;
+background: #FFD700;
+border-radius: 50%;
+right: 0;
+top: 50%;
+transform: translateY(-50%);
+}
+        
+/* Шар */
+.ball {
+position: absolute;
+width: 45px;
+height: 45px;
+border-radius: 50%;
+top: 50%;
+transform: translateY(-50%);
+box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+        
+.cue-ball {
+background: radial-gradient(circle at 30% 30%, white, #ddd);
+left: 180px;
+z-index: 1;
+}
+        
+.target-ball {
+background: radial-gradient(circle at 30% 30%, red, #b30000);
+right: 180px;
+}
+        
+.ball-number {
+position: absolute;
+width: 20px;
+height: 20px;
+background: white;
+border-radius: 50%;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 12px;
+font-weight: bold;
+}
+        
+/* Анимации */
+@keyframes strikeCue {
+0% { transform: translateY(-50%) rotate(0deg); }
+30% { transform: translateY(-50%) rotate(-15deg) translateX(-10px); }
+100% { transform: translateY(-50%) rotate(0deg); }
+}
+
+@keyframes moveCueBall {
+0% { left: 180px; transform: translateY(-50%); }
+20% { transform: translateY(-50%) scale(1.1); }
+100% { left: 340px; transform: translateY(-50%) scale(1); }
+}
+        
+@keyframes moveTargetBall {
+0% { 
+right: 180px; 
+top: 50%;
+transform: translateY(-50%); 
+}
+30% { 
+transform: translateY(-50%) scale(1.1); 
+}
+100% { 
+right: -25px; 
+top: 50%;
+transform: translateY(-50%) scale(0.5); 
+opacity: 0; 
+}
+}
+        
+@keyframes ballVibration {
+0%, 100% { transform: translateY(-50%); }
+50% { transform: translateY(-50%) rotate(10deg); }
+}
+        
+/* Кнопка */
+.btn {
+position: absolute;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+padding: 10px 25px;
+background: #e74c3c;
+color: white;
+border: none;
+border-radius: 20px;
+cursor: pointer;
+font-weight: bold;
+box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+        
+.btn:hover {
+background: #c0392b;
+transform: translateX(-50%) translateY(-2px);
+}
+        
+.btn:active {
+transform: translateX(-50%) translateY(1px);
+}
+</style>
+</head>
+<body>
+<div class="table">
+<!-- Лунки -->
+<div class="pocket pocket1"></div>
+<div class="pocket pocket2"></div>
+<div class="pocket pocket3"></div>
+<div class="pocket pocket4"></div>
+<div class="pocket pocket5"></div>
+<div class="pocket pocket6"></div>
+        
+<!-- Кий -->
+<div class="cue" id="cue">
+<div class="cue-tip"></div>
+</div>
+        
+<!-- Биток -->
+<div class="ball cue-ball" id="cueBall"></div>
+        
+<!-- шар -->
+<div class="ball target-ball" id="targetBall">
+<div class="ball-number">3</div>
+</div>
+        
+<button class="btn" onclick="playAnimation()">Ударить</button>
+</div>
+
+<script>
+function playAnimation() {
+const cue = document.getElementById('cue');
+const cueBall = document.getElementById('cueBall');
+const targetBall = document.getElementById('targetBall');
+const btn = document.querySelector('.btn');
+
+// Блокируем кнопку
+btn.disabled = true;
+btn.textContent = 'Анимация...';
+            
+// 1. Кий бьет
+cue.style.animation = 'strikeCue 0.5s ease-in-out';
+            
+// 2. Биток двигается
+setTimeout(() => {
+cueBall.style.animation = 'moveCueBall 0.8s ease-out forwards, ballVibration 0.2s ease-in-out 2';
+                
+// 3.  шар летит
+setTimeout(() => {
+targetBall.style.animation = 'moveTargetBall 1s ease-out forwards, ballVibration 0.2s ease-in-out 2';
+
+// Возвращаем в исходное состояние
+setTimeout(() => {
+// Сбрасываем анимации
+cue.style.animation = '';
+cueBall.style.animation = '';
+targetBall.style.animation = '';
+targetBall.style.opacity = '1';
+targetBall.style.right = '180px';
+targetBall.style.transform = 'translateY(-50%) scale(1)';
+cueBall.style.left = '180px';
+                        
+// Разблокируем кнопку
+btn.disabled = false;
+btn.textContent = 'Ударить';
+}, 1500);
+}, 400);
+}, 300);
+}
+</script>
+</body>
+</html>

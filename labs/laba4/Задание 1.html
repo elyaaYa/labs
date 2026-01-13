@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Домик в деревне</title>
+<style>
+body {
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+background: linear-gradient(#87CEEB, #98FB98);
+font-family: Arial, sans-serif;
+}
+        
+.scene {
+position: relative;
+width: 400px;
+height: 400px;
+}
+        
+/* Солнце */
+.sun {
+position: absolute;
+top: 30px;
+right: 30px;
+width: 60px;
+height: 60px;
+background: #FFD700;
+border-radius: 50%;
+}
+        
+/* Облака */
+.cloud {
+position: absolute;
+background: white;
+border-radius: 50px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.cloud1 {
+width: 100px;
+height: 40px;
+top: 30px;
+left: 50px;
+}
+
+.cloud2 {
+width: 80px;
+height: 30px;
+top: 80px;
+left: 200px;
+}
+        
+/* Домик */
+.house {
+position: absolute;
+bottom: 100px;
+left: 150px;
+}
+        
+/* Стены */
+.walls {
+width: 200px;
+height: 150px;
+background: linear-gradient(#DEB887, #D2B48C);
+border: 3px solid #8B4513;
+}
+        
+/* Крыша */
+.roof {
+width: 220px;
+height: 120px;
+background: linear-gradient(45deg, #8B0000, #B22222);
+clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+position: absolute;
+top: -120px;
+left: -10px;
+}
+
+/* Окно */
+.window {
+width: 60px;
+height: 60px;
+background: #E6F7FF;
+border: 3px solid #8B4513;
+position: absolute;
+top: 40px;
+left: 30px;
+border-radius: 5px;
+box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+        
+.window-cross {
+position: absolute;
+width: 100%;
+height: 100%;
+}
+        
+.window-cross:before,
+.window-cross:after {
+content: '';
+position: absolute;
+background: #8B4513;
+}
+        
+.window-cross:before {
+width: 3px;
+height: 100%;
+left: 50%;
+transform: translateX(-50%);
+}
+        
+.window-cross:after {
+width: 100%;
+height: 3px;
+top: 50%;
+transform: translateY(-50%);
+}
+        
+/* Дверь */
+.door {
+width: 50px;
+height: 90px;
+background: linear-gradient(#8B4513, #A0522D);
+position: absolute;
+bottom: 0;
+right: 30px;
+border: 2px solid #654321;
+border-radius: 5px 5px 0 0;
+}
+        
+.door-handle {
+width: 8px;
+height: 8px;
+background: gold;
+border-radius: 50%;
+position: absolute;
+top: 50%;
+left: 5px;
+transform: translateY(-50%);
+}
+        
+/* Дым из трубы */
+.chimney {
+width: 25px;
+height: 40px;
+background: #696969;
+position: absolute;
+top: -130px;
+right: 80px;
+z-index: -1;
+}
+
+.smoke {
+width: 20px;
+height: 20px;
+background: rgba(255, 255, 255, 0.7);
+border-radius: 50%;
+position: absolute;
+top: -150px;
+right: 82px;
+}
+
+.smoke:nth-child(2) {
+top: -160px;
+right: 85px;
+}
+
+.smoke:nth-child(3) {
+top: -170px;
+right: 78px;
+}
+        
+/* Трава и земля */
+.ground {
+position: absolute;
+bottom: 0;
+width: 100%;
+height: 100px;
+background: linear-gradient(#556B2F, #6B8E23);
+}
+        
+/* Цветы */
+.flower {
+position: absolute;
+bottom: 100px;
+width: 5px;
+height: 20px;
+background: #228B22;
+}
+        
+.flower:before {
+content: '';
+position: absolute;
+width: 15px;
+height: 15px;
+background: #FF69B4;
+border-radius: 50%;
+top: -10px;
+left: -5px;
+}
+        
+.flower1 { left: 80px; }
+.flower2 { left: 120px; }
+.flower3 { left: 300px; }
+.flower4 { left: 350px; }
+        
+
+</style>
+</head>
+<body>
+<div class="scene">
+<div class="sun"></div>
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
+        
+<div class="house">
+<div class="roof"></div>
+<div class="walls">
+<div class="window">
+<div class="window-cross"></div>
+</div>
+<div class="door">
+<div class="door-handle"></div>
+</div>
+</div>
+<div class="chimney"></div>
+<div class="smoke"></div>
+<div class="smoke"></div>
+<div class="smoke"></div>
+</div>
+        
+<div class="fence">
+<div class="fence-piece"></div>
+<div class="fence-piece"></div>
+<div class="fence-piece"></div>
+<div class="fence-piece"></div>
+<div class="fence-piece"></div>
+<div class="fence-piece"></div>
+<div class="fence-piece"></div>
+<div class="fence-piece"></div>
+</div>
+        
+<div class="flower flower1"></div>
+<div class="flower flower2"></div>
+<div class="flower flower3"></div>
+<div class="flower flower4"></div>
+        
+<div class="ground"></div>
+</div>
+</body>
+</html>

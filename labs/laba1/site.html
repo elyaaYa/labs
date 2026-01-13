@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Язык программирования Java</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+<style>
+/* Подключение локального шрифта Great Vibes */
+@font-face {
+font-family: 'GreatVibes';
+src: url('GreatVibes-Regular.ttf') format('truetype');
+font-weight: normal;
+font-style: normal;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+        
+body {
+font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+font-size: 14px;
+line-height: 1.6;
+color: #6b5b5b;
+background: linear-gradient(135deg, #fff5f7 0%, #ffebee 50%, #fff5f7 100%);
+padding: 20px;
+min-height: 100vh;
+}
+        
+.container {
+max-width: 1200px;
+margin: 0 auto;
+background-color: #fffefe;
+padding: 35px;
+border-radius: 20px;
+box-shadow: 0 10px 30px rgba(255, 182, 193, 0.12);
+border: 1px solid #ffebee;
+}
+        
+h1, h2, h3, h4 {
+font-family: 'GreatVibes', cursive;
+color: #ff8ba7;
+margin-bottom: 15px;
+text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+        
+h1 {
+font-size: 24px;
+text-align: center;
+padding: 20px 0;
+margin-bottom: 30px;
+border-bottom: 3px double #ffccd5;
+color: #ff8ba7;
+letter-spacing: 1px;
+}
+        
+h2 {
+font-size: 18px;
+background: linear-gradient(to right, #fff0f5 0%, #fff8f8 100%);
+padding: 14px 20px;
+border-radius: 12px;
+margin-top: 35px;
+margin-bottom: 25px;
+border-left: 6px solid #ffccd5;
+box-shadow: 0 3px 8px rgba(255, 182, 193, 0.08);
+}
+        
+h3 {
+font-size: 24px;
+color: #ffa6c1;
+margin-top: 25px;
+margin-bottom: 15px;
+padding-bottom: 8px;
+border-bottom: 2px dotted #ffccd5;
+}
+        
+/* Содержание */
+.toc {
+background: linear-gradient(to bottom, #fff8f8 0%, #fff5f5 100%);
+padding: 25px;
+border-radius: 15px;
+margin-bottom: 35px;
+border: 1px solid #ffebee;
+box-shadow: 0 5px 15px rgba(255, 182, 193, 0.08);
+}
+        
+.toc h3 {
+margin-top: 0;
+color: #ff8ba7;
+border-bottom: none;
+text-align: center;
+}
+        
+.toc ul {
+padding-left: 25px;
+margin: 0;
+}
+        
+.toc li {
+margin-bottom: 12px;
+}
+        
+/* Изображения */
+.img-left {
+float: left;
+margin: 8px 25px 15px 0;
+width: 150px;
+height: 150px;
+object-fit: cover;
+border-radius: 15px;
+border: 4px solid #ffccd5;
+box-shadow: 0 6px 15px rgba(255, 182, 193, 0.15);
+shape-outside: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+shape-margin: 15px;
+transition: all 0.3s ease;
+}
+        
+.img-left:hover {
+transform: scale(1.05);
+box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
+border-color: #ffa6c1;
+}
+        
+.img-right {
+float: right;
+margin: 8px 0 15px 25px;
+width: 150px;
+height: 150px;
+object-fit: cover;
+border-radius: 15px;
+border: 4px solid #ffccd5;
+box-shadow: 0 6px 15px rgba(255, 182, 193, 0.15);
+shape-outside: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+shape-margin: 15px;
+transition: all 0.3s ease;
+}
+        
+.img-right:hover {
+transform: scale(1.05);
+box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
+border-color: #ffa6c1;
+}
+        
+.img-center {
+display: block;
+margin: 20px auto;
+width: 180px;
+height: 180px;
+object-fit: cover;
+border-radius: 15px;
+border: 4px solid #ffccd5;
+box-shadow: 0 6px 15px rgba(255, 182, 193, 0.15);
+transition: all 0.3s ease;
+}
+        
+.img-center:hover {
+transform: scale(1.05);
+box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
+border-color: #ffa6c1;
+        }
+        
+.clearfix::after {
+content: "";
+display: table;
+clear: both;
+        }
+        
+/* Основной текст */
+p {
+margin-bottom: 18px;
+text-align: justify;
+line-height: 1.7;
+}
+        
+strong {
+color: #ff8ba7;
+font-weight: 700;
+background-color: #fff0f5;
+padding: 2px 6px;
+border-radius: 4px;
+}
+        
+em {
+color: #ffa6c1;
+font-style: italic;
+font-weight: 500;
+}
+        
+/* Нумерованный список */
+ol {
+padding-left: 30px;
+margin: 20px 0;
+background-color: #fffafa;
+padding: 20px 20px 20px 40px;
+border-radius: 12px;
+}
+        
+ol li {
+margin-bottom: 12px;
+padding-left: 10px;
+padding-top: 3px;
+padding-bottom: 3px;
+border-left: 3px solid #ffccd5;
+background-color: #fffefe;
+border-radius: 0 8px 8px 0;
+padding: 8px 12px 8px 15px;
+}
+        
+/* Маркированный список со стандартным маркером */
+ul.standard {
+padding-left: 25px;
+margin: 20px 0;
+}
+        
+ul.standard li {
+margin-bottom: 12px;
+list-style-type: disc;
+color: #ff8ba7;
+padding-left: 10px;
+line-height: 1.6;
+}
+        
+ul.standard li span {
+color: #6b5b5b;
+}
+        
+/* Маркированный список с картинкой */
+ul.image-marker {
+padding-left: 0;
+margin: 20px 0;
+background-color: #fffafa;
+padding: 20px;
+border-radius: 12px;
+}
+        
+ul.image-marker li {
+list-style-type: none;
+margin-bottom: 15px;
+padding-left: 40px;
+position: relative;
+padding-top: 5px;
+padding-bottom: 5px;
+}
+        
+ul.image-marker li:before {
+content: "";
+position: absolute;
+left: 0;
+top: 50%;
+transform: translateY(-50%);
+width: 28px;
+height: 28px;
+background-image: url('Java_logo2.jpg'); 
+background-repeat: no-repeat;
+background-size: contain;
+background-color: #fff;
+border-radius: 50%;
+padding: 5px;
+border: 2px solid #ffccd5;
+box-shadow: 0 3px 6px rgba(255, 182, 193, 0.15);
+}
+
+        
+/* Таблица */
+table {
+width: 100%;
+border-collapse: separate;
+border-spacing: 0;
+margin: 30px 0;
+background-color: white;
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 8px 25px rgba(255, 182, 193, 0.12);
+border: 1px solid #ffebee;
+}
+        
+table caption {
+font-weight: bold;
+color: #ff8ba7;
+margin-bottom: 15px;
+font-size: 17px;
+text-align: center;
+padding: 10px;
+background-color: #fff0f5;
+border-radius: 10px;
+margin-top: 20px;
+}
+        
+table th {
+background: linear-gradient(to bottom, #fff0f5 0%, #ffebee 100%);
+color: #ff8ba7;
+padding: 18px 20px;
+text-align: left;
+font-weight: 700;
+border-bottom: 2px solid #ffccd5;
+font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+letter-spacing: 0.5px;
+font-size: 16px;
+}
+        
+table td {
+padding: 16px 20px;
+border-bottom: 1px solid #fff5f8;
+}
+        
+table tr:last-child td {
+border-bottom: none;
+}
+        
+table tr:nth-child(even) {
+background-color: #fffafa;
+}
+        
+/* Блок кода с подсветкой */
+.code-block {
+background: linear-gradient(to right, #2a2a2a 0%, #2d2d2d 100%);
+color: #f8f8f2;
+padding: 25px;
+border-radius: 15px;
+overflow-x: auto;
+margin: 25px 0;
+font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+font-size: 14px;
+line-height: 1.6;
+border-left: 8px solid #ffa6c1;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+position: relative;
+}
+        
+.code-block:before {
+content: "Java";
+position: absolute;
+top: 10px;
+right: 15px;
+color: #ffa6c1;
+font-size: 12px;
+font-weight: bold;
+opacity: 0.7;
+}
+        
+.keyword {
+color: #cc99cd;
+font-weight: bold;
+}
+        
+.class-name {
+color: #f8c555;
+}
+        
+.string {
+color: #7ec699;
+}
+        
+.comment {
+color: #aaaaaa;
+font-style: italic;
+}
+        
+.method {
+color: #f08d49;
+}
+        
+.number {
+color: #f08d49;
+}
+        
+/* Ссылки */
+a {
+color: #ff8ba7;
+text-decoration: none;
+font-weight: 600;
+border-bottom: 2px dotted #ffa6c1;
+padding-bottom: 2px;
+}
+        
+a:hover {
+color: #ff6b8b;
+border-bottom: 2px solid #ff6b8b;
+}
+        
+/* Особые элементы */
+.highlight {
+background: linear-gradient(135deg, #fff0f5 0%, #ffebee 100%);
+padding: 4px 10px;
+border-radius: 8px;
+font-weight: bold;
+color: #ff8ba7;
+border: 1px solid #ffccd5;
+box-shadow: 0 3px 6px rgba(255, 182, 193, 0.15);
+}
+        
+.note {
+background: linear-gradient(to right, #fff8f8 0%, #fffafa 100%);
+border-left: 6px solid #ffa6c1;
+padding: 22px;
+margin: 25px 0;
+border-radius: 0 15px 15px 0;
+box-shadow: 0 5px 15px rgba(255, 182, 193, 0.1);
+border-top: 1px solid #ffebee;
+border-bottom: 1px solid #ffebee;
+border-right: 1px solid #ffebee;
+}
+        
+.note strong {
+color: #ff8ba7;
+background-color: transparent;
+padding: 0;
+}
+        
+/* Списки использованных тегов и свойств */
+.used-tags, .used-properties {
+background: linear-gradient(to bottom, #fff8f8 0%, #fff5f5 100%);
+padding: 25px;
+border-radius: 15px;
+margin-top: 40px;
+border: 1px solid #ffebee;
+box-shadow: 0 5px 15px rgba(255, 182, 193, 0.08);
+}
+        
+.used-tags h3, .used-properties h3 {
+margin-top: 0;
+text-align: center;
+color: #ff8ba7;
+border-bottom: none;
+}
+
+.tags-list, .props-list {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+justify-content: center;
+}
+        
+.tag, .prop {
+background-color: white;
+padding: 8px 15px;
+border-radius: 10px;
+border: 2px solid #ffccd5;
+font-family: 'Consolas', monospace;
+font-size: 13px;
+color: #ff8ba7;
+box-shadow: 0 3px 6px rgba(255, 182, 193, 0.15);
+}
+        
+        
+/* Адаптивность */
+@media (max-width: 900px) {
+.img-left, .img-right {
+float: none;
+display: block;
+margin: 25px auto;
+width: 200px;
+height: 200px;
+shape-outside: none;
+}
+            
+.img-center {
+width: 200px;
+height: 200px;
+}
+            
+.container {
+padding: 20px;
+}
+
+table {
+display: block;
+overflow-x: auto;
+}
+
+.tags-list, .props-list {
+gap: 8px;
+}
+}
+        
+/* Дополнительное оформление */
+section {
+margin-bottom: 45px;
+padding-bottom: 25px;
+border-bottom: 2px dashed #ffccd5;
+}
+        
+section:last-of-type {
+border-bottom: none;
+}
+        
+.quote {
+font-style: italic;
+color: #8a7a7a;
+border-left: 4px solid #ffa6c1;
+padding-left: 20px;
+margin: 20px 0;
+background-color: #fffafa;
+padding: 15px 20px;
+border-radius: 0 10px 10px 0;
+}
+        
+/* Стиль для хронологии */
+.chronology-item {
+margin-bottom: 10px;
+padding-left: 10px;
+}
+        
+.chronology-year {
+display: inline-block;
+width: 50px;
+font-weight: bold;
+color: #ff8ba7;
+}
+        
+.chronology-text {
+display: inline-block;
+width: calc(100% - 60px);
+vertical-align: top;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Язык программирования Java</h1>
+</header>
+        
+<nav class="toc">
+<h3>Содержание статьи</h3>
+<ul class="standard">
+<li><a href="#history">История создания Java</a></li>
+<li><a href="#overview">Краткий обзор языка</a></li>
+<li><a href="#code-examples">Примеры кода на Java</a></li>
+</ul>
+</nav>
+
+<main>
+<section id="history">
+<h2>История создания Java</h2>
+                
+<div class="clearfix">
+<img src="James.jpg" alt="Джеймс Гослинг" class="img-left">
+                    
+<p>Язык <strong>Java</strong> появился в начале 1990-х годов в недрах компании <em>Sun Microsystems</em>. Изначально проект носил название <span class="highlight">"Oak"(Дуб) и предназначался для программирования бытовых электронных устройств: телевизоров, видеомагнитофонов, пультов дистанционного управления.</p>
+                    
+<p>Руководителем проекта был талантливый инженер <strong>Джеймс Гослинг</strong>, которого сегодня по праву называют <em>"отцом Java"</em>. Вместе с командой единомышленников он создал язык, который сочетал в себе мощь C++ и простоту освоения.</p>
+                    
+<p>В 1995 году, с бурным развитием интернета, язык был переименован в Java и переориентирован на веб-разработку. Ключевым преимуществом стала концепция <strong>"Write Once, Run Anywhere"</strong> (Напиши один раз, запускай где угодно), реализованная через виртуальную машину Java (JVM).</p>
+                    
+<div class="note">
+<p><strong>Интересный факт:</strong> Название "Java" было выбрано случайно — разработчики пили кофе сорта Java, и это название просто понравилось команде больше других вариантов.</p>
+</div>
+                    
+<p>Официальный релиз Java 1.0 состоялся 23 января 1996 года. С тех пор язык пережил множество трансформаций и стал одним из самых популярных в мире. В 2010 году компанию Sun Microsystems приобрела корпорация Oracle, которая сегодня продолжает развивать платформу.</p>
+                    
+<h3>Хронология развития Java</h3>
+<ol>
+<li class="chronology-item">
+<span class="chronology-year">1991</span>
+<span class="chronology-text">начало разработки языка Oak под руководством Джеймса Гослинга</span>
+</li>
+<li class="chronology-item">
+<span class="chronology-year">1995</span>
+<span class="chronology-text">представление Java 1.0 на конференции SunWorld</span>
+</li>
+<li class="chronology-item">
+<span class="chronology-year">1998</span>
+<span class="chronology-text">выход Java 2 (J2SE 1.2) с расширенной стандартной библиотекой</span>
+</li>
+<li class="chronology-item">
+<span class="chronology-year">2004</span>
+<span class="chronology-text">релиз J2SE 5.0 с generics, аннотациями, autoboxing</span>
+</li>
+<li class="chronology-item">
+<span class="chronology-year">2006</span>
+<span class="chronology-text">Sun открывает исходный код Java под лицензией GPL</span>
+</li>
+<li class="chronology-item">
+<span class="chronology-year">2014</span>
+<span class="chronology-text">выход Java 8 с лямбда-выражениями и Stream API</span>
+</li>
+<li class="chronology-item">
+<span class="chronology-year">2017</span>
+<span class="chronology-text">переход на полугодовой цикл выпуска новых версий</span>
+</li>
+<li class="chronology-item">
+<span class="chronology-year">2021</span>
+<span class="chronology-text">выпуск Java 17 — версии с долгосрочной поддержкой (LTS)</span>
+</li>
+<li class="chronology-item">
+<span class="chronology-year">2023</span>
+<span class="chronology-text">релиз Java 21 с виртуальными потоками и шаблонами записей</span>
+</li>
+</ol>
+</div>
+</section>
+            
+<section id="overview">
+<h2>Краткий обзор языка</h2>
+                
+<div class="clearfix">
+<img src="Java_logo.jpg" alt="Логотип Java" class="img-right">
+                    
+<p><strong>Java</strong> — это строго типизированный объектно-ориентированный язык программирования, который следует принципам простоты, надежности и безопасности. Его архитектура позволяет создавать кроссплатформенные приложения, которые могут выполняться на любой операционной системе, где установлена JVM.</p>
+                    
+<p>Основной единицей программы в Java является класс. Все данные и методы должны быть определены внутри классов. Программа начинается с выполнения метода <span class="highlight">main()</span> в основном классе.</p>
+                    
+<h3>Ключевые особенности Java</h3>
+<ul class="image-marker">
+<li><strong>Объектно-ориентированный подход</strong> — все сущности в Java являются объектами (за исключением примитивных типов)</li>
+<li><strong>Автоматическое управление памятью</strong> — сборщик мусора (Garbage Collector) освобождает память от неиспользуемых объектов</li>
+<li><strong>Многопоточность</strong> — встроенная поддержка параллельного выполнения кода</li>
+<li><strong>Безопасность</strong> — отсутствие указателей, проверка границ массивов, security manager</li>
+<li><strong>Динамичность</strong> — загрузка классов во время выполнения, рефлексия</li>
+<li><strong>Кроссплатформенность</strong> — байт-код выполняется на любой платформе с JVM</li>
+</ul>
+                    
+<img src="Proga.jpg" alt="Программирование на Java" class="img-center">
+                    
+<h3>Области применения Java</h3>
+<ul class="standard">
+<li><span>Корпоративные приложения</span> — банковские системы, ERP, CRM</li>
+<li><span>Веб-разработка</span> — серверные приложения на Spring, Jakarta EE</li>
+<li><span>Научные вычисления</span> — математическое моделирование, анализ данных</li>
+<li><span>Встраиваемые системы</span> — IoT устройства, смарт-карты</li>
+<li><span>Большие данные</span> — обработка с помощью Hadoop, Spark</li>
+<li><span>Игровая индустрия</span> — Minecraft, серверные части игр</li>
+</ul>
+                    
+<p>Java продолжает развиваться и оставаться востребованным языком благодаря своей стабильности, богатой экосистеме и огромному сообществу разработчиков. Крупнейшие IT-компании мира, включая Google, Amazon, Netflix и Twitter, активно используют Java в своих продуктах.</p>
+                    
+<div class="quote">
+"Java — это C++, из которого убрали все пистолеты, ножи и дубинки."<br>
+— <em>Анонимный разработчик</em>
+</div>
+                    
+<h3>Основные версии Java и их особенности</h3>
+<table>
+<caption>Эволюция основных версий Java</caption>
+<thead>
+<tr>
+<th>Версия</th>
+<th>Кодовое имя</th>
+<th>Год выпуска</th>
+<th>Ключевые нововведения</th>
+<th>Тип релиза</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JDK 1.0</td>
+<td>Oak</td>
+<td>1996</td>
+<td>Первая публичная версия, базовые возможности</td>
+<td>Мажорный</td>
+</tr>
+<tr>
+<td>J2SE 1.2</td>
+<td>Playground</td>
+<td>1998</td>
+<td>Коллекции, JIT-компилятор, Swing GUI</td>
+<td>Мажорный</td>
+</tr>
+<tr>
+<td>J2SE 5.0</td>
+<td>Tiger</td>
+<td>2004</td>
+<td>Generics, аннотации, autoboxing, varargs</td>
+<td>Мажорный</td>
+</tr>
+<tr>
+<td>Java SE 6</td>
+<td>Mustang</td>
+<td>2006</td>
+<td>Скриптинговая поддержка, улучшения производительности</td>
+<td>Мажорный</td>
+</tr>
+<tr>
+<td>Java SE 7</td>
+<td>Dolphin</td>
+<td>2011</td>
+<td>Try-with-resources, строки в switch, diamond operator</td>
+<td>Мажорный</td>
+</tr>
+<tr>
+<td>Java SE 8</td>
+<td>Spider</td>
+<td>2014</td>
+<td>Лямбда-выражения, Stream API, Date/Time API</td>
+<td>LTS</td>
+</tr>
+<tr>
+<td>Java SE 11</td>
+<td>-</td>
+<td>2018</td>
+<td>Локальный вывод типов var, HTTP клиент, сборщик мусора ZGC</td>
+<td>LTS</td>
+</tr>
+<tr>
+<td>Java SE 17</td>
+<td>-</td>
+<td>2021</td>
+<td>Sealed классы, pattern matching, улучшенная производительность</td>
+<td>LTS</td>
+</tr>
+<tr>
+<td>Java SE 21</td>
+<td>-</td>
+<td>2023</td>
+<td>Виртуальные потоки, шаблоны записей, улучшенный сборщик мусора</td>
+<td>LTS</td>
+</tr>
+</tbody>
+</table>
+                    
+<p>Сегодня Java — это не просто язык программирования, а целая экосистема, включающая JVM, фреймворки, библиотеки и инструменты разработки. Язык продолжает эволюционировать, сохраняя обратную совместимость, что позволяет старым приложениям работать на новых версиях JVM.</p>
+</div>
+</section>
+            
+<section id="code-examples">
+<h2>Примеры кода на Java</h2>
+<p>Java славится своим чётким, структурированным синтаксисом. Ниже представлены характерные примеры кода с подсветкой синтаксиса, демонстрирующие основные возможности языка.</p>
+                
+<h3>Пример 1: Простейшая программа</h3>
+<div class="code-block">
+<span class="keyword">public class</span> <span class="class-name">HelloWorld</span> {
+<span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+System.out.<span class="method">println</span>(<span class="string">"Hello, World!"</span>);
+}
+}
+</div>
+
+<h3>Пример 2: Простой класс</h3>
+<div class="code-block">
+<span class="keyword">public class</span> <span class="class-name">Calculator</span> {
+    
+<span class="keyword">public int</span> <span class="method">add</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {
+<span class="keyword">return</span> a + b;
+}
+    
+<span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+Calculator calc = <span class="keyword">new</span> <span class="class-name">Calculator</span>();
+<span class="keyword">int</span> result = calc.<span class="method">add</span>(<span class="number">10</span>, <span class="number">5</span>);
+System.out.<span class="method">println</span>(<span class="string">"Результат: "</span> + result);
+}
+}
+</div>
+                
+<h3>Пример 3: Использование массива</h3>
+<div class="code-block">
+<span class="keyword">public class</span> <span class="class-name">ArrayExample</span> {
+<span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+        
+<span class="keyword">int</span>[] numbers = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>};
+        
+<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.length; i++) {
+System.out.<span class="method">println</span>(numbers[i]);
+}
+}
+}
+</div>
+                
+<p>Для углубленного изучения Java рекомендуется посетить <a href="https://docs.oracle.com/javase/tutorial/" target="_blank">официальный учебник Oracle</a>, где представлены подробные руководства по всем аспектам языка, или <a href="#history">вернуться к истории Java</a> для понимания эволюции языка.</p>
+</section>
+</main>
+        
+<div class="used-tags">
+<h3>Использованные HTML-теги:</h3>
+<div class="tags-list">
+<span class="tag">html</span>
+<span class="tag">head</span>
+<span class="tag">meta</span>
+<span class="tag">title</span>
+<span class="tag">link</span>
+<span class="tag">style</span>
+<span class="tag">body</span>
+<span class="tag">div</span>
+<span class="tag">header</span>
+<span class="tag">h1</span>
+<span class="tag">h2</span>
+<span class="tag">h3</span>
+<span class="tag">h4</span>
+<span class="tag">nav</span>
+<span class="tag">ul</span>
+<span class="tag">li</span>
+<span class="tag">a</span>
+<span class="tag">main</span>
+<span class="tag">section</span>
+<span class="tag">p</span>
+<span class="tag">strong</span>
+<span class="tag">em</span>
+<span class="tag">span</span>
+<span class="tag">ol</span>
+<span class="tag">img</span>
+<span class="tag">table</span>
+<span class="tag">caption</span>
+<span class="tag">thead</span>
+<span class="tag">tbody</span>
+<span class="tag">tr</span>
+<span class="tag">th</span>
+<span class="tag">td</span>
+<span class="tag">br</span>
+<span class="tag">footer</span>
+<span class="tag">caption</span>
+</div>
+</div>
+        
+<div class="used-properties">
+<h3>Использованные CSS-свойства:</h3>
+<div class="props-list">
+<span class="prop">font-family</span>
+<span class="prop">font-size</span>
+<span class="prop">font-weight</span>
+<span class="prop">font-style</span>
+<span class="prop">line-height</span>
+<span class="prop">color</span>
+<span class="prop">background-color</span>
+<span class="prop">background-image</span>
+<span class="prop">background</span>
+<span class="prop">background-size</span>
+<span class="prop">margin</span>
+<span class="prop">padding</span>
+<span class="prop">border</span>
+<span class="prop">border-radius</span>
+<span class="prop">border-left</span>
+<span class="prop">border-bottom</span>
+<span class="prop">border-top</span>
+<span class="prop">border-right</span>
+<span class="prop">box-shadow</span>
+<span class="prop">text-align</span>
+<span class="prop">text-decoration</span>
+<span class="prop">text-shadow</span>
+<span class="prop">width</span>
+<span class="prop">max-width</span>
+<span class="prop">height</span>
+<span class="prop">display</span>
+<span class="prop">position</span>
+<span class="prop">top</span>
+<span class="prop">left</span>
+<span class="prop">transform</span>
+<span class="prop">float</span>
+<span class="prop">clear</span>
+<span class="prop">overflow</span>
+<span class="prop">overflow-x</span>
+<span class="prop">box-sizing</span>
+<span class="prop">border-collapse</span>
+<span class="prop">border-spacing</span>
+<span class="prop">list-style-type</span>
+<span class="prop">content</span>
+<span class="prop">flex-wrap</span>
+<span class="prop">gap</span>
+<span class="prop">justify-content</span>
+<span class="prop">shape-outside</span>
+<span class="prop">shape-margin</span>
+<span class="prop">letter-spacing</span>
+<span class="prop">object-fit</span>
+</div>
+</div>
+</div>
+</body>
+</html>

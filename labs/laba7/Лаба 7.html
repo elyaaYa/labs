@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>MiniCalc 1000</title>
+<style>
+body {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+background-color: #aaa;
+font-family: Arial, sans-serif;
+}
+
+.calculator {
+width: 300px;
+padding: 15px;
+border-radius: 20px;
+background-color: #d6d6d6;
+box-shadow: 5px 5px 15px #666;
+}
+
+.top-panel {
+text-align: center;
+font-weight: bold;
+font-size: 16px;
+color: #333;
+margin-bottom: 8px;
+}
+
+#display {
+width: 90%;
+height: 50px;
+font-size: 26px;
+font-weight: bold;
+text-align: right;
+border-radius: 8px;
+padding: 0 12px;
+background-color: #e9e9e9;
+border: 2px solid #999;
+box-shadow: inset 2px 2px 6px #aaa;
+color: #111;
+margin-bottom: 12px;
+}
+
+.row {
+display: flex;
+margin-bottom: 5px;
+}
+
+.button {
+flex: 1;
+height: 48px;
+margin: 2px;
+font-size: 18px;
+border-radius: 6px;
+border: none;
+cursor: pointer;
+box-shadow: 2px 2px 4px #555;
+}
+
+.button.num {
+background-color: #ffffff;
+color: #000000;
+}
+
+.button.func {
+background-color: #1f4fd8;
+color: #ffffff;
+}
+
+.button:active {
+box-shadow: inset 2px 2px 4px #555;
+}
+</style>
+</head>
+
+<body>
+<div class="calculator">
+
+<div class="top-panel">MiniCalc 1000</div>
+<div id="display">0</div>
+
+<div class="row">
+<button class="button func" onclick="clearAll()">C/CE</button>
+<button class="button func" onclick="turnOff()">OFF</button>
+<button class="button func" onclick="sqrt()">√</button>
+<button class="button func" onclick="percent()">%</button>
+</div>
+
+<div class="row">
+<button class="button func" onclick="memoryRecall()">MRC</button>
+<button class="button func" onclick="memoryMinus()">M-</button>
+<button class="button func" onclick="memoryPlus()">M+</button>
+<button class="button func" onclick="operation('/')">÷</button>
+</div>
+
+<div class="row">
+<button class="button num" onclick="add('7')">7</button>
+<button class="button num" onclick="add('8')">8</button>
+<button class="button num" onclick="add('9')">9</button>
+<button class="button func" onclick="operation('*')">×</button>
+</div>
+
+<div class="row">
+<button class="button num" onclick="add('4')">4</button>
+<button class="button num" onclick="add('5')">5</button>
+<button class="button num" onclick="add('6')">6</button>
+<button class="button func" onclick="operation('-')">−</button>
+</div>
+
+<div class="row">
+<button class="button num" onclick="add('1')">1</button>
+<button class="button num" onclick="add('2')">2</button>
+<button class="button num" onclick="add('3')">3</button>
+<button class="button func" onclick="operation('+')">+</button>
+</div>
+
+<div class="row">
+<button class="button num" onclick="add('0')">0</button>
+<button class="button num" onclick="add('.')">.</button>
+<button class="button func" onclick="equals()">=</button>
+<button class="button func" onclick="reciprocal()">1/x</button>
+</div>
+
+</div>
+
+<script>
+let display=document.getElementById("display");
+let current="";
+let prev=0;
+let op="";
+let off=false;
+
+let memory=0;
+let mrc=false;
+
+function update(){
+display.textContent=current||"0";
+display.style.backgroundColor=off?"#b0b0b0":"#e9e9e9";
+}
+
+function add(n){
+if(off)return;
+current+=n;
+update();
+}
+
+function clearAll(){
+off=false;
+current="";
+prev=0;
+op="";
+update();
+}
+
+function operation(o){
+if(off||!current)return;
+prev=parseFloat(current);
+current="";
+op=o;
+}
+
+function equals(){
+if(off||!current)return;
+let c=parseFloat(current);
+let r=0;
+if(op==="+")r=prev+c;
+if(op==="-")r=prev-c;
+if(op==="*")r=prev*c;
+if(op==="/")r=prev/c;
+current=r.toString();
+op="";
+update();
+}
+
+function sqrt(){
+if(current){
+current=Math.sqrt(parseFloat(current)).toString();
+update();
+}
+}
+
+function reciprocal(){
+if(current){
+current=(1/parseFloat(current)).toString();
+update();
+}
+}
+
+function percent(){
+if(current){
+current=(parseFloat(current)/100).toString();
+update();
+}
+}
+
+function turnOff(){
+off=true;
+current="";
+update();
+}
+
+function memoryPlus(){
+if(current)memory+=parseFloat(current);
+mrc=false;
+}
+
+function memoryMinus(){
+if(current)memory-=parseFloat(current);
+mrc=false;
+}
+
+function memoryRecall(){
+if(!mrc){
+current=memory.toString();
+mrc=true;
+}else{
+memory=0;
+current="";
+mrc=false;
+}
+update();
+}
+</script>
+</body>
+</html>
